@@ -1,0 +1,50 @@
+package com.Selenium;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
+
+public class DropDown {
+    public static void main(String[] args) {
+        System.setProperty("Webdriver.chrome.driver","C:\\chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("http://leafground.com/pages/Dropdown.html");
+
+        //1.select by using index,text,value
+        WebElement dropdown1= driver.findElement(By.id("dropdown1"));
+        Select select=new Select(dropdown1);
+
+        select.selectByValue("2");
+
+        select.selectByIndex(4);
+
+        select.selectByVisibleText("Selenium");
+
+        //Get the number of dropdown options
+        List<WebElement> option =select.getOptions();
+        int size =option.size();
+        System.out.println(size);
+
+        //select dropdown by using sendkeys
+        WebElement dropdown2=driver.findElement
+                (By.xpath("//option[text()='You can also use sendKeys to select']/parent::select"));
+        dropdown2.sendKeys("Loadrunner");
+
+        //select multiple dropdown option
+
+        WebElement dropdown4=driver.findElement(By.xpath("//option[text()='Appium']/parent::select"));
+        Select multipleoption = new Select(dropdown4);
+
+        multipleoption.selectByIndex(2);
+        multipleoption.selectByIndex(3);
+        multipleoption.selectByIndex(4);
+
+
+          driver.close();
+    }
+}
